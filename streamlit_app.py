@@ -89,32 +89,35 @@ if "사회" in service:
     )
 
 # --- 축가 선택 시 ---
-song_pref, custom_song = None, None
+song_pref, custom_song, selected_song = None, None, None
 if "축가" in service:
     st.header("🎵 축가 관련 정보")
     song_pref = st.radio("원하는 노래가 있으신가요?", ["네, 있어요", "추천해주세요!"])
+
     if song_pref == "네, 있어요":
         custom_song = st.text_input("원하는 곡명을 입력해주세요")
+
     else:
-        st.write("🎶 추천곡 리스트 (예시)")
+        st.write("🎶 추천곡 리스트 (선택 가능)")
         song_list = [
-            '1. 임영웅 - 이제 나만 믿어요',
-            '2. 유해준 - 나에게 그대만이 (탑현 ver. 가능)',
-            '3. 윤종신 - 오르막길',
-            '4. 이석훈 - 그대를 사랑하는 10가지 이유',
-            '5. 이준호 - 넌',
-            '6. 허각 - 언제나',
-            '7. 허각 - 물론',
-            '8. 정승환 - 사뿐',
-            '9. 유리상자 - 신부에게',
-            '10. 김범수 - 사랑의 시작은 고백에서부터 (전상근 ver. 가능)',
-            '11. 김범수 - 오직 너만',
-            '12. 한동근 - 그대라는 사치',
-            '13. 윤종신 - 그대 없이는 못살아 (늦가을 ver.)'
+            '임영웅 - 이제 나만 믿어요',
+            '유해준 - 나에게 그대만이 (탑현 ver. 가능)',
+            '윤종신 - 오르막길',
+            '이석훈 - 그대를 사랑하는 10가지 이유',
+            '이준호 - 넌',
+            '허각 - 언제나',
+            '허각 - 물론',
+            '정승환 - 사뿐',
+            '유리상자 - 신부에게',
+            '김범수 - 사랑의 시작은 고백에서부터 (전상근 ver. 가능)',
+            '김범수 - 오직 너만',
+            '한동근 - 그대라는 사치',
+            '윤종신 - 그대 없이는 못살아 (늦가을 ver.)'
         ]
-        df_songs = pd.DataFrame(song_list, columns=["추천곡 리스트"])
-        st.dataframe(df_songs, use_container_width=True)
+
+        selected_song = st.selectbox("원하시는 곡을 선택해주세요 💕", song_list)
         st.caption("🎤 분위기와 취향에 따라 곡 분위기를 조정해드립니다. (탑현/전상근 ver. 가능)")
+
 
 # --- 신청서 ---
 st.header("📝 의뢰 신청서 작성")

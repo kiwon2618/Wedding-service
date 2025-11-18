@@ -4,7 +4,7 @@ from datetime import date
 st.set_page_config(page_title="영원파파 결혼식 축가·사회 의뢰", page_icon="💐", layout="centered")
 
 # =========================================================
-# CSS ONLY (HTML 없음)
+# CSS ONLY
 # =========================================================
 st.markdown("""
 <style>
@@ -17,20 +17,19 @@ html, body, .stApp {
     justify-content:center;
 }
 
-/* A4 카드 */
-.a4-card {
+/* 카드 (A4 제거, 컴팩트) */
+.card {
     width:780px;
-    min-height:1100px;
     background:rgba(255,255,255,0.94);
-    border-radius:22px;
-    padding:50px 55px 90px 55px;
-    margin-top:40px;
+    border-radius:28px;
+    padding:50px 55px 70px 55px;
+    margin-top:30px;
     box-shadow:0 0 40px rgba(0,0,0,0.05);
     position:relative;
     overflow:hidden;
 }
 
-/* 금가루 에니메이션 */
+/* 금가루 고정 */
 @keyframes goldDust {
   0%{opacity:.07;transform:translateY(0) scale(1);}
   50%{opacity:.16;transform:translateY(-15px) scale(1.15);}
@@ -50,72 +49,79 @@ html, body, .stApp {
 
 /* 꽃 패턴 */
 .header-floral {
-    width:100%; height:160px;
+    width:100%; height:140px;
     background-image:url('https://cdn.pixabay.com/photo/2016/11/29/08/09/flower-1867614_1280.png');
     background-repeat:no-repeat;
     background-size:contain;
     background-position:center;
-    opacity:0.25;
+    opacity:0.22;
 }
 
 /* 금박 프레임 */
 .header-frame {
-    margin-top:20px;
-    padding:45px 30px 35px 30px;
-    border-radius:48px;
+    margin-top:-30px;
+    padding:35px 30px 30px 30px;
+    border-radius:42px;
     backdrop-filter:blur(6px);
     border:6px solid;
     border-image:linear-gradient(135deg,#c4a46a,#ebdebe,#d6b680,#f7eed3,#c4a46a) 1;
-    background:rgba(255,255,255,0.55);
-    box-shadow:0 0 15px rgba(210,180,120,0.35), inset 0 0 22px rgba(250,230,200,0.35);
+    background:rgba(255,255,255,0.58);
+    box-shadow:0 0 18px rgba(210,180,120,0.35), inset 0 0 22px rgba(250,230,200,0.4);
 }
 
+/* 이미지 */
 .wedding-img {
-    width:260px; opacity:.62; display:block; margin:auto;
+    width:180px; opacity:.62; display:block; margin:auto;
 }
 
+/* 제목 비율 조정 */
 .title-main-kr {
     font-family:"Gmarket Sans";
     font-weight:900;
-    font-size:2.9rem;
+    font-size:2.1rem;       /* 더 작게 */
     text-align:center;
     color:#d36c87;
 }
 .title-main-en {
     text-align:center;
-    margin-top:-10px;
+    margin-top:4px;
     color:#8a6b6b;
-    font-size:1.15rem;
+    font-size:1.55rem;      /* 더 크게 */
+    font-weight:600;
 }
+
 .gold-line {
     width:55%; height:2px;
     background:linear-gradient(90deg,transparent,#d6b680,transparent);
-    margin:18px auto;
+    margin:15px auto;
 }
 .title-sub {
     font-family:"Gowun Batang";
     text-align:center;
-    font-size:1.05rem;
+    font-size:1rem;
     color:#9c8372;
-    margin-top:12px;
+    margin-top:8px;
 }
+.ribbon-box {text-align:center;margin-top:4px;opacity:0.9;}
 
-.ribbon-box {text-align:center;margin-top:12px;opacity:0.9;}
 </style>
 """, unsafe_allow_html=True)
 
-
-
 # =========================================================
-# HTML HEADER (함수로 분리 → 공백 0)
+# HTML HEADER
 # =========================================================
 def render_header():
     st.markdown("""
+<div class="header-floral"></div>
+
 <div class="header-frame">
     <img src="https://cdn.pixabay.com/photo/2016/06/05/19/02/just-married-1436861_1280.png" class="wedding-img">
+
     <div class="title-main-kr">영원파파</div>
     <div class="title-main-en">Wedding Ceremony with You</div>
+
     <div class="gold-line"></div>
+
     <div class="ribbon-box">
         <svg width="200" height="28" viewBox="0 0 300 60">
             <path d="M10 30 Q80 5 150 30 T290 30" stroke="url(#gold)" stroke-width="6" fill="none"/>
@@ -130,28 +136,22 @@ def render_header():
             </defs>
         </svg>
     </div>
+
     <p class="title-sub">Singing & Hosting Professional Service</p>
 </div>
 """, unsafe_allow_html=True)
 
-
-
 # =========================================================
-# A4 카드 시작 (→ 헤더/금가루 반드시 이 안에 넣어야 함)
+# 카드 시작
 # =========================================================
-st.markdown('<div class="a4-card">', unsafe_allow_html=True)
-
+st.markdown('<div class="card">', unsafe_allow_html=True)
 st.markdown('<div class="gold-dust"></div>', unsafe_allow_html=True)
-st.markdown('<div class="header-floral"></div>', unsafe_allow_html=True)
 
-render_header()   # ← 이제 A4 카드 안에 표시됨 (핵심)
-
-
+render_header()
 
 # =========================================================
 # FORM
 # =========================================================
-
 st.markdown("### 🎤 의뢰 서비스 선택")
 service = st.multiselect("", ["축가", "사회"], label_visibility="collapsed")
 
@@ -168,15 +168,22 @@ mood = st.radio("예식 분위기", ["낭만적 💞","유쾌하게 😄","격�
 
 if "사회" in service:
     st.markdown("### 🎙️ 사회 스타일")
-    host_style = st.radio("진행 스타일", ["담백·심플 (정석)", "센스 있고 위트 있게"])
+    host_style = st.radio("진행 스타일", ["담백·정석", "센스 있고 위트 있게"])
 
 if "축가" in service:
     st.markdown("### 🎵 축가 정보")
     song_pref = st.radio("원하는 곡이 있나요?", ["네, 있어요", "추천해주세요!"])
+
     if song_pref == "네, 있어요":
         custom_song = st.text_input("축가 곡명 입력")
     else:
-        song_recommend = ['임영웅 - 이제 나만 믿어요','유해준 - 나에게 그대만이','윤종신 - 오르막길']
+        song_recommend = [
+            "임영웅 - 이제 나만 믿어요",
+            "유해준 - 나에게 그대만이",
+            "윤종신 - 오르막길",
+            "이석훈 - 그대를 사랑하는 10가지 이유",
+            "허각 - 언제나",
+        ]
         custom_song = st.selectbox("추천 곡 선택", song_recommend)
 
 st.markdown("### ✍️ 연락처 & 기타 요청사항")

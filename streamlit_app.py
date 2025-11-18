@@ -4,77 +4,99 @@ import smtplib
 from email.mime.text import MIMEText
 import base64
 
+# ============================================================================================
+#                               🌸 페이지 설정
+# ============================================================================================
 st.set_page_config(page_title="영원파파 결혼식 축가·사회 의뢰", page_icon="💐", layout="centered")
 
-# ===============================
-#  CSS 스타일 (투명 웨딩 일러스트 포함)
-# ===============================
+# ============================================================================================
+#                       🌸 웨딩 일러스트 base64(투명도 조절된 버전)
+# ============================================================================================
+wedding_img_base64 = """
+iVBORw0KGgoAAAANSUhEUgAABAAAAAYACAIAAABn4K39AAEOqmNhQlgAAQ6qanV...
+(⚠ 실제 base64 전체는 매우 길어서 잘림 — 아래에서 전체 버전 제공)
+"""
+
+# 배경 이미지 CSS
+st.markdown(f"""
+<style>
+.stApp::before {{
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/png;base64,{wedding_img_base64}") no-repeat center 120px;
+    background-size: 38%;
+    opacity: 0.22;   /* 투명도 */
+    z-index: -1;
+}}
+</style>
+""", unsafe_allow_html=True)
+
+# ============================================================================================
+#                       🌸 제목 디자인
+# ============================================================================================
 st.markdown("""
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Pretendard:wght@600;700;800&family=Gmarket+Sans:wght@700&display=swap");
 
-body, .stApp {
-    background:
-        linear-gradient(rgba(255,255,255,0.94), rgba(255,255,255,0.92)),
-        url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAAYACAIAAABn4K39AAEOqmNhQlgAAQ6qanV...IAAAKoAOJtxA3VybjpjMnBhOmQ4YmM3YjRlLTc5MzQtNDAwYS05Yzk1LTcwNmI2") no-repeat center 80px;
-    background-size: 45%;
-    background-attachment: scroll;
-    opacity: 1;
-}
-
-/* 배경 일러스트 투명도 */
-.stApp::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAAYACAIAAABn4K39AAEOqmNhQlgAAQ6qanV...IAAAKoAOJtxA3VybjpjMnBhOmQ4YmM3YjRlLTc5MzQtNDAwYS05Yzk1LTcwNmI2") no-repeat center 80px;
-    background-size: 50%;
-    opacity: 0.35;           /* ← 투명도 강화!! */
-    z-index: -1;
-}
-
-.title-main {
+.title-main-kr {
     font-family: "Gmarket Sans", sans-serif;
-    font-size: 3.2rem;
+    font-size: 3.3rem;
     font-weight: 800;
-    color: #d37288;
-    text-shadow: 0 0 6px rgba(255,200,210,0.6);
-    margin-bottom: 5px;
+    color: #d05478;
+    text-align: center;
+    margin-top: 120px;
+    text-shadow: 0 0 6px rgba(255,180,195,0.45);
+}
+
+.title-main-en {
+    font-family: "Pretendard", sans-serif;
+    font-size: 1.35rem;
+    color: #6f5a55;
+    font-weight: 600;
+    margin-top: -8px;
+    text-align: center;
 }
 
 .title-sub {
-    font-family: "Pretendard", sans-serif;
-    font-size: 1.1rem;
-    color: #8d6f62;
-    font-weight: 600;
-}
-
-.gold-line {
-    width: 60%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #d8bba0, transparent);
-    margin: 20px auto;
+    font-family: "Gowun Batang";
+    font-size: 1rem;
+    color: #a18478;
+    margin-top: 12px;
+    text-align: center;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# ===============================
-#       타이틀 영역
-# ===============================
+# HTML 타이틀 본문
 st.markdown("""
-<div style="text-align:center; padding:50px 0 20px 0;">
-    <div class="title-main">영원파파</div>
-    <div style="font-family:'Pretendard'; font-size:1.8rem; color:#5f4c4c; font-weight:700;">
-        Wedding Ceremony with You
-    </div>
-    <div class="gold-line"></div>
-    <p class="title-sub">Singing & Hosting Professional Service</p>
-</div>
+<div class="title-main-kr">영원파파</div>
+<div class="title-main-en">Wedding Ceremony with You</div>
+<div class="title-sub">Singing & Hosting Professional Service</div>
 """, unsafe_allow_html=True)
 
-# ===============================
-#        입력폼
-# ===============================
+# ============================================================================================
+#                       🌸 추천곡 리스트
+# ============================================================================================
+song_list = [
+    '임영웅 - 이제 나만 믿어요',
+    '유해준 - 나에게 그대만이 (탑현 ver. 가능)',
+    '윤종신 - 오르막길',
+    '이석훈 - 그대를 사랑하는 10가지 이유',
+    '이준호 - 넌',
+    '허각 - 언제나',
+    '허각 - 물론',
+    '정승환 - 사뿐',
+    '유리상자 - 신부에게',
+    '김범수 - 사랑의 시작은 고백에서부터 (전상근 ver. 가능)',
+    '김범수 - 오직 너만',
+    '한동근 - 그대라는 사치',
+    '윤종신 - 그대 없이는 못살아 (늦가을 ver.)'
+]
+
+# ============================================================================================
+#                                   🌸 입력폼
+# ============================================================================================
 st.markdown("### 🎤 의뢰 서비스 선택")
 service = st.multiselect("", ["축가", "사회"], label_visibility="collapsed")
 
@@ -89,35 +111,25 @@ venue = st.selectbox("예식 장소", ["호텔", "하우스 웨딩", "야외", "
 venue_address = st.text_input("예식장 주소")
 mood = st.radio("예식 분위기", ["낭만적 💞", "유쾌하게 😄", "격식 있게 🎩"])
 
+# 사회 스타일
 host_style = None
 if "사회" in service:
     st.markdown("### 🎙️ 사회 스타일")
     host_style = st.radio("진행 스타일", ["담백·심플 (정석)", "센스 있고 위트 있게"])
 
+# 축가
 song_pref = None
 custom_song = None
-song_list = [
-    '임영웅 - 이제 나만 믿어요',
-    '유해준 - 나에게 그대만이 (탑현 ver.)',
-    '윤종신 - 오르막길',
-    '이석훈 - 그대를 사랑하는 10가지 이유',
-    '이준호 - 넌',
-    '허각 - 언제나',
-    '허각 - 물론',
-    '정승환 - 사뿐',
-    '유리상자 - 신부에게',
-    '김범수 - 사랑의 시작은 고백에서부터 (전상근 ver.)',
-    '김범수 - 오직 너만',
-    '한동근 - 그대라는 사치',
-    '윤종신 - 그대 없이는 못살아 (늦가을 ver.)'
-]
-
 if "축가" in service:
     st.markdown("### 🎵 축가 정보")
     song_pref = st.radio("원하는 곡이 있나요?", ["네, 있어요", "추천해주세요!"])
-    if song_pref == "네, 있어요":
-        custom_song = st.selectbox("축가 곡 선택", song_list)
 
+    if song_pref == "추천해주세요!":
+        custom_song = st.selectbox("추천 곡 리스트", song_list)
+    else:
+        custom_song = st.text_input("축가 곡명 직접 입력")
+
+# 연락처
 st.markdown("### ✍️ 연락처 & 기타 요청사항")
 col1, col2 = st.columns(2)
 with col1:
@@ -127,9 +139,9 @@ with col2:
 
 special_request = st.text_area("특이사항 / 기타 요청사항", height=120)
 
-# ===============================
-# 이메일 함수
-# ===============================
+# ============================================================================================
+#                        🌸 이메일 전송 함수
+# ============================================================================================
 def send_email(to, subject, body):
     try:
         sender = st.secrets["email"]["address"]
@@ -149,9 +161,9 @@ def send_email(to, subject, body):
         st.error("❌ 이메일 전송 실패: " + str(e))
         return False
 
-# ===============================
-# 제출 버튼
-# ===============================
+# ============================================================================================
+#                                   🌸 제출 버튼
+# ============================================================================================
 if st.button("💌 신청서 제출하기"):
     st.success("의뢰 신청이 완료되었습니다! 💐")
 
@@ -166,9 +178,7 @@ if st.button("💌 신청서 제출하기"):
         "선택 서비스": ", ".join(service) if service else "미선택",
         "사회 스타일": host_style if host_style else "해당 없음",
         "축가 방식": song_pref if song_pref else "해당 없음",
-        "축가 곡명": custom_song if custom_song else (
-            "추천 요청" if song_pref == "추천해주세요!" else "미입력"
-        ),
+        "축가 곡명": custom_song if custom_song else "미입력",
         "기타 요청사항": special_request if special_request else "없음",
         "이메일": user_email or "미입력",
         "핸드폰": user_phone or "미입력",
@@ -186,28 +196,22 @@ if st.button("💌 신청서 제출하기"):
 안녕하세요, 영원파파입니다 💒
 
 의뢰 신청이 정상 접수되었습니다!
-📌 3일 이내 순차적으로 회신드리겠습니다.
+영원파파를 선택해주셔서 다시 한번 감사드립니다.
+📌 **3일 이내에 순차적으로 회신드리겠습니다.**
 
 --- 신청 내용 ---
 {email_body}
 
-문의는 인스타그램 @0one.papa 로 연락주세요 💕
+문의사항은 인스타그램 @0one.papa 로 편하게 연락주세요 💕
 """
         send_email(user_email, "[영원파파] 의뢰 접수 완료", confirm)
 
-# ===============================
-# 인스타그램 버튼
-# ===============================
+# ============================================================================================
+#                                   🌸 인스타그램 버튼
+# ============================================================================================
 st.markdown("""
 <div style="text-align:center; margin-top:50px; margin-bottom:30px;">
-    <a style="
-        font-size:1.35rem; font-weight:800; padding:18px 45px;
-        color:white !important;
-        background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
-        border-radius:40px; text-decoration:none !important;
-        box-shadow:0 6px 25px rgba(255,90,130,0.45);
-        transition:0.3s;
-    " href="https://www.instagram.com/0one.papa/" target="_blank">
+    <a class="insta-btn" href="https://www.instagram.com/0one.papa/" target="_blank">
         📸 Instagram @0one.papa
     </a>
 </div>

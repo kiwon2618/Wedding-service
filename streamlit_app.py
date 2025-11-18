@@ -9,7 +9,7 @@ from email.mime.text import MIMEText
 st.set_page_config(page_title="영원파파 결혼식 축가·사회 의뢰", page_icon="💐", layout="centered")
 
 # ============================================================================================
-#                           🌸 스타일: 웨딩 배경 + 화이트 플라워 + 타이틀
+#                        🌸 스타일: 웨딩 배경 + 투명 화이트 플라워 + 서체
 # ============================================================================================
 st.markdown("""
 <style>
@@ -17,43 +17,39 @@ st.markdown("""
 
 body, .stApp {
     background:
-        linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.92)),
-        url("https://www.transparenttextures.com/patterns/white-feather.png"),
-        url("https://www.transparenttextures.com/patterns/white-floral.png"),
-        url("https://images.unsplash.com/photo-1508973376-37031c9f9a43?w=1600&q=80") center/cover fixed;
-    background-blend-mode: normal, screen, overlay, multiply;
+        linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.93)),
+        url("https://www.transparenttextures.com/patterns/white-linen.png");
 }
 
 .white-flower {
-    width: 110px;
-    opacity: 0.92;
-    margin: 0 25px;
-    filter: drop-shadow(0 4px 10px rgba(180,160,160,0.45));
+    width: 140px;
+    opacity: 0.95;
+    filter: drop-shadow(0 4px 10px rgba(190,170,170,0.5));
+    margin: 0 30px;
 }
 
 .title-main {
     font-family: "Gmarket Sans", sans-serif;
-    font-size: 3.9rem;
+    font-size: 3.6rem;
     font-weight: 800;
-    color: #d35f82;
+    color: #d55f85;
     text-align: center;
-    text-shadow: 0 0 8px rgba(255,200,210,0.55);
-    margin-bottom: 8px;
+    text-shadow: 0 0 8px rgba(255,180,190,0.5);
 }
 
 .title-sub {
     font-family: "Pretendard", sans-serif;
-    font-size: 1.18rem;
+    font-size: 1.22rem;
     font-weight: 600;
     text-align: center;
     color: #8d6f62;
 }
 
 .gold-line {
-    width: 55%;
+    width: 58%;
     height: 2px;
-    background: linear-gradient(90deg, transparent, #d8bba0, transparent);
-    margin: 20px auto;
+    background: linear-gradient(90deg, transparent, #d6b99d, transparent);
+    margin: 22px auto;
 }
 
 .insta-btn {
@@ -79,18 +75,27 @@ body, .stApp {
 """, unsafe_allow_html=True)
 
 # ============================================================================================
-#                                   🌸 헤더 (들여쓰기 0칸!!)
+#                                   🌸 헤더 (웨딩 플라워 + 타이틀)
 # ============================================================================================
 st.markdown("""
-<div style="text-align:center; padding:55px 0 35px 0;">
-<img class="white-flower" src="https://png.pngtree.com/png-vector/20220708/ourlarge/pngtree-white-rose-wedding-flower-png-image_5686823.png">
-<div class="title-main">영원파파</div>
-<img class="white-flower" src="https://png.pngtree.com/png-vector/20220708/ourlarge/pngtree-white-rose-wedding-flower-png-image_5686823.png">
+<div style="text-align:center; padding:60px 0 35px 0;">
+
+<img class="white-flower"
+     src="https://raw.githubusercontent.com/morethanmin/WeddingAssets/main/flowers/white_flower_left.png">
+
+<div class="title-main">축가 & 사회 전문 의뢰 서비스</div>
+
+<img class="white-flower"
+     src="https://raw.githubusercontent.com/morethanmin/WeddingAssets/main/flowers/white_flower_right.png">
+
 <div class="gold-line"></div>
-<p class="title-sub">Wedding Singer & Host Service</p>
-<p style="font-family:'Gowun Batang'; color:#a18478; font-size:0.95rem;">
-당신의 가장 특별한 순간을 더욱 아름답게 만들어드립니다
+
+<p class="title-sub">영원파파와 함께하는 아름다운 웨딩 세리머니</p>
+
+<p style="font-family:'Gowun Batang'; color:#a18478; font-size:0.96rem; margin-top:5px;">
+당신의 가장 특별한 순간을 더욱 따뜻하게 만들어드립니다
 </p>
+
 </div>
 """, unsafe_allow_html=True)
 
@@ -134,7 +139,7 @@ with col2:
 special_request = st.text_area("특이사항 / 기타 요청사항", height=120)
 
 # ============================================================================================
-#                        🌸 이메일 전송 함수 (누락 없음)
+#                        🌸 이메일 전송 함수
 # ============================================================================================
 def send_email(to, subject, body):
     try:
@@ -206,7 +211,7 @@ if st.button("💌 신청서 제출하기"):
 #                                   🌸 인스타그램 버튼
 # ============================================================================================
 st.markdown("""
-<div style="text-align:center; margin-top:50px; margin-bottom:30px;">
+<div style="text-align:center; margin-top:55px; margin-bottom:35px;">
     <a class="insta-btn" href="https://www.instagram.com/0one.papa/" target="_blank">
         📸 Instagram @0one.papa
     </a>

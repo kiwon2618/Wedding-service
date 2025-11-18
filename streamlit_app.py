@@ -9,7 +9,7 @@ from email.mime.text import MIMEText
 st.set_page_config(page_title="영원파파 결혼식 축가·사회 의뢰", page_icon="💐", layout="centered")
 
 # ----------------------------------------------------------
-# CSS 스타일
+# CSS
 # ----------------------------------------------------------
 st.markdown("""
 <style>
@@ -18,56 +18,77 @@ st.markdown("""
 body, .stApp {
     background: linear-gradient(rgba(255,255,255,0.96), rgba(255,255,255,0.94));
 }
+
 .white-flower {
-    width: 130px;
-    opacity: 0.97;
-    margin: 0 25px;
+    width: 118px;
+    opacity: 0.96;
+    margin: 0 20px;
     filter: drop-shadow(0 5px 10px rgba(180,160,160,0.35));
 }
-.title-main {
+
+.title-main-kr {
     font-family: "Gmarket Sans", sans-serif;
-    font-size: 2.8rem;
+    font-size: 3.1rem;
     font-weight: 800;
     color: #d55f85;
-    text-align: center;
+    margin-bottom: 4px;
 }
+
+.title-main-en {
+    font-family: "Pretendard", sans-serif;
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: #7e6a64;
+    margin-top: -5px;
+}
+
 .title-sub {
     font-family: "Pretendard", sans-serif;
-    font-size: 1.25rem;
-    text-align: center;
+    font-size: 1.1rem;
     color: #8d6f62;
-    font-weight: 600;
+    font-weight: 500;
+    margin-top: 10px;
 }
+
 .gold-line {
-    width: 50%;
+    width: 48%;
     height: 2px;
     background: linear-gradient(90deg, transparent, #d6b99d, transparent);
-    margin: 18px auto;
+    margin: 22px auto;
 }
 </style>
 """, unsafe_allow_html=True)
 
 # ----------------------------------------------------------
-# Base64 이미지 (빈칸에 너의 이미지 붙여 넣기)
+# 웨딩 플라워 이미지 (절대 깨지지 않는 외부 URL)
 # ----------------------------------------------------------
-LEFT_FLOWER = "data:image/png;base64,PASTE_YOUR_LEFT_BASE64_HERE"
-RIGHT_FLOWER = "data:image/png;base64,PASTE_YOUR_RIGHT_BASE64_HERE"
+LEFT_FLOWER = "https://i.imgur.com/3ZQy7MN.png"
+RIGHT_FLOWER = "https://i.imgur.com/ypE7t9N.png"
 
 # ----------------------------------------------------------
 # 헤더
 # ----------------------------------------------------------
 st.markdown(f"""
-<div style="text-align:center; padding:40px 0 20px 0;">
+<div style="text-align:center; padding:45px 0 25px 0;">
+
     <img class="white-flower" src="{LEFT_FLOWER}">
-    <div class="title-main">영원파파와 함께하는 아름다운 웨딩 세리머니</div>
     <img class="white-flower" src="{RIGHT_FLOWER}">
+
+    <div class="title-main-kr">영원파파</div>
+
+    <div class="title-main-en">
+        Wedding Ceremony with You
+    </div>
+
     <div class="gold-line"></div>
-    <p class="title-sub">축가 & 사회 전문 의뢰 서비스</p>
+
+    <p class="title-sub">Singing & Hosting Professional Service</p>
+
 </div>
 """, unsafe_allow_html=True)
 
 # ----------------------------------------------------------
-# 입력 폼
+# 입력폼
 # ----------------------------------------------------------
 st.markdown("### 🎤 의뢰 서비스 선택")
 service = st.multiselect("", ["축가", "사회"], label_visibility="collapsed")
@@ -102,8 +123,7 @@ recommended_songs = [
     '윤종신 - 그대 없이는 못살아 (늦가을 ver.)'
 ]
 
-song_pref = None
-custom_song = None
+song_pref, custom_song = None, None
 
 if "축가" in service:
     st.markdown("### 🎵 축가 정보")
@@ -153,8 +173,7 @@ def send_email(to, subject, body):
             smtp.send_message(msg)
 
         return True
-    except Exception as e:
-        st.error("❌ 이메일 전송 실패: " + str(e))
+    except:
         return False
 
 # ----------------------------------------------------------

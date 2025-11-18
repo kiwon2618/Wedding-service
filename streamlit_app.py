@@ -1,15 +1,12 @@
 import streamlit as st
 from datetime import date
-import smtplib
-from email.mime.text import MIMEText
 
 st.set_page_config(page_title="영원파파 결혼식 축가·사회 의뢰", page_icon="💐", layout="centered")
 
 # =========================================================
-# CSS (들여쓰기 절대 금지)
+# CSS + HEADER (절대 공백 넣지 마세요)
 # =========================================================
-st.markdown("""
-<style>
+st.markdown("""<style>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gmarket+Sans:wght@700&family=Pretendard:wght@400;600;700&display=swap');
 
 html, body, .stApp {
@@ -30,7 +27,7 @@ html, body, .stApp {
     position:relative;
 }
 
-/* 배경 금가루 */
+/* 금가루 애니메이션 */
 @keyframes goldDust {
   0%{opacity:.07; transform:translateY(0) scale(1);}
   50%{opacity:.16; transform:translateY(-18px) scale(1.15);}
@@ -63,28 +60,28 @@ html, body, .stApp {
     border-radius:42px;
     border:6px solid;
     border-image:linear-gradient(135deg,#c4a46a,#ebdebe,#d6b680,#f7eed3,#c4a46a) 1;
-    background:rgba(255,255,255,0.58);
+    background:rgba(255,255,255,0.65);
     box-shadow:0 0 18px rgba(210,180,120,0.35), inset 0 0 22px rgba(250,230,200,0.4);
 }
 
 /* 웨딩 이미지 */
 .wedding-img {
-    width:120px; opacity:.6; display:block; margin:auto;
+    width:110px; opacity:.6; display:block; margin:auto;
 }
 
 /* 타이틀 */
 .title-main-kr {
-    font-family:"Gmarket Sans";
-    text-align:center;
+    font-family:"Gmarket Sans"; 
+    text-align:center; 
     font-weight:900;
-    font-size:1.7rem;   
+    font-size:1.65rem; 
     color:#d36c87;
 }
 .title-main-en {
-    text-align:center;
-    margin-top:4px;
+    text-align:center; 
+    margin-top:4px; 
     color:#8a6b6b;
-    font-size:1.65rem;
+    font-size:1.72rem; 
     font-weight:600;
 }
 
@@ -96,8 +93,8 @@ html, body, .stApp {
 
 .title-sub {
     font-family:"Gowun Batang";
-    text-align:center;
-    font-size:1.0rem;
+    text-align:center; 
+    font-size:1.0rem; 
     color:#9c8372;
 }
 
@@ -113,28 +110,15 @@ html, body, .stApp {
     box-shadow:0 6px 20px rgba(255,90,130,0.45);
 }
 </style>
-""", unsafe_allow_html=True)
-
-
-
-# =========================================================
-# HEADER (HTML 공백 없이 바로 시작)
-# =========================================================
-st.markdown("""
 <div class="card">
-    <div class="gold-dust"></div>
-    <div class="header-floral"></div>
-
-    <div class="header-frame">
-
+<div class="gold-dust"></div>
+<div class="header-floral"></div>
+<div class="header-frame">
 <img src="https://cdn.pixabay.com/photo/2016/06/05/19/02/just-married-1436861_1280.png" class="wedding-img">
-
 <div class="title-main-kr">영원파파</div>
 <div class="title-main-en">Wedding Ceremony with You</div>
-
 <div class="gold-line"></div>
-
-<div style="text-align:center; margin-top:4px;">
+<div style="text-align:center; margin-top:6px;">
 <svg width="200" height="28" viewBox="0 0 300 60">
 <path d="M10 30 Q80 5 150 30 T290 30" stroke="url(#gold)" stroke-width="6" fill="none"/>
 <defs>
@@ -148,20 +132,17 @@ st.markdown("""
 </defs>
 </svg>
 </div>
-
 <p class="title-sub">Singing & Hosting Professional Service</p>
-
-    </div>
+</div>
 """, unsafe_allow_html=True)
 
 
+# =========================================================
+# FORM 영역
+# =========================================================
 
-# =========================================================
-# FORM AREA
-# =========================================================
 st.markdown("### 🎤 의뢰 서비스 선택")
 service = st.multiselect("", ["축가", "사회"], label_visibility="collapsed")
-
 
 st.markdown("### 👰🤵 기본 정보")
 role = st.radio("결혼식 주인공", ["신랑", "신부"])
@@ -169,23 +150,19 @@ name = st.text_input("이름")
 age = st.number_input("만 나이", 18, 80)
 wedding_date = st.date_input("예식일", date.today())
 
-
 st.markdown("### 🏩 예식 정보")
 venue = st.selectbox("예식 장소", ["호텔","하우스 웨딩","야외","컨벤션","기타"])
 venue_address = st.text_input("예식장 주소")
 mood = st.radio("예식 분위기", ["낭만적 💞","유쾌하게 😄","격식 있게 🎩"])
 
-
-# 사회
 host_style = None
 if "사회" in service:
     st.markdown("### 🎙️ 사회 스타일")
-    host_style = st.radio("진행 스타일", ["담백·정석", "센스 있고 위트 있게"])
+    host_style = st.radio("진행 스타일", ["담백·정석","센스 있고 위트 있게"])
 
-
-# 축가
 song_pref = None
 custom_song = None
+
 song_recommend_list = [
     '임영웅 - 이제 나만 믿어요',
     '유해준 - 나에게 그대만이 (탑현 ver. 가능)',
@@ -210,37 +187,24 @@ if "축가" in service:
     else:
         custom_song = st.selectbox("추천 곡 선택", song_recommend_list)
 
-
-# 연락처
 st.markdown("### ✍️ 연락처 & 기타 요청사항")
 col1, col2 = st.columns(2)
 user_email = col1.text_input("📧 이메일")
 user_phone = col2.text_input("📱 핸드폰 번호")
 special_request = st.text_area("특이사항 / 기타 요청사항", height=120)
 
-
-
 # =========================================================
-# SUBMIT BUTTON
-# =========================================================
-if st.button("💌 신청서 제출하기"):
-    st.success("의뢰 신청이 완료되었습니다! 💐")
-
-
-
-# =========================================================
-# END CARD CLOSE
+# END CARD
 # =========================================================
 st.markdown("</div>", unsafe_allow_html=True)
 
-
 # =========================================================
-# INSTAGRAM BUTTON
+# INSTAGRAM
 # =========================================================
 st.markdown("""
 <div style='text-align:center; margin-top:45px;'>
-    <a class="insta-btn" href="https://www.instagram.com/0one.papa/" target="_blank">
-        📸 Instagram @0one.papa
-    </a>
+<a class="insta-btn" href="https://www.instagram.com/0one.papa/" target="_blank">
+📸 Instagram @0one.papa
+</a>
 </div>
 """, unsafe_allow_html=True)

@@ -28,10 +28,11 @@ body, .stApp {
 
 .title-main {
     font-family: "Gmarket Sans", sans-serif;
-    font-size: 3.6rem;
+    font-size: 3.8rem;
     font-weight: 800;
-    color: #d37288;
-    text-shadow: 0 0 6px rgba(255,200,210,0.6);
+    color: #d35f82;
+    text-align:center;
+    text-shadow: 0 0 10px rgba(255,200,210,0.5);
     margin-bottom: 8px;
 }
 
@@ -40,19 +41,21 @@ body, .stApp {
     font-size: 1.2rem;
     color: #8d6f62;
     font-weight: 600;
-    margin-top: -8px;
+    text-align:center;
 }
 
 .gold-line {
     width: 55%;
     height: 2px;
     background: linear-gradient(90deg, transparent, #d8bba0, transparent);
-    margin: 15px auto 22px auto;
+    margin: 18px auto 25px auto;
 }
 
 .white-flower {
-    width: 90px;
-    filter: drop-shadow(0 3px 6px rgba(200,180,180,0.4));
+    width: 105px;
+    opacity: 0.9;
+    margin: 0 20px;
+    filter: drop-shadow(0 4px 8px rgba(200,180,180,0.45));
 }
 
 .insta-btn {
@@ -79,21 +82,26 @@ body, .stApp {
 
 
 # ============================================================================================
-#                                   🌸 헤더 (HTML 깨짐 절대 없음)
+#                                   🌸 헤더 (완벽 안정화)
 # ============================================================================================
 st.markdown("""
-<div style="text-align:center; padding:45px 0 25px 0;">
-    <img class="white-flower" src="https://cdn-icons-png.flaticon.com/512/7665/7665330.png">
+<div style="text-align:center; padding:50px 0 30px 0;">
+
+    <img class="white-flower"
+         src="https://png.pngtree.com/png-vector/20220708/ourlarge/pngtree-white-rose-wedding-flower-png-image_5686823.png">
+
     <div class="title-main">영원파파</div>
-    <img class="white-flower" src="https://cdn-icons-png.flaticon.com/512/7665/7665330.png">
+
+    <img class="white-flower"
+         src="https://png.pngtree.com/png-vector/20220708/ourlarge/pngtree-white-rose-wedding-flower-png-image_5686823.png">
 
     <div class="gold-line"></div>
 
     <p class="title-sub">Wedding Singer & Host Service</p>
-
     <p style="font-family:'Gowun Batang'; color:#a18478; font-size:0.95rem;">
         당신의 가장 특별한 순간을 더욱 아름답게 만들어드립니다
     </p>
+
 </div>
 """, unsafe_allow_html=True)
 

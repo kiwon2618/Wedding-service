@@ -10,13 +10,13 @@ st.set_page_config(page_title="영원파파 결혼식 축가·사회 의뢰", pa
 
 
 # ============================================================================================
-#                        🌸 웨딩 일러스트 (상단 로고)
+#                        🌸 웨딩 로고 이미지 (안정 URL)
 # ============================================================================================
 wedding_image = "https://cdn.pixabay.com/photo/2016/06/05/19/02/just-married-1436861_1280.png"
 
 
 # ============================================================================================
-#                         🌸 CSS : 웨딩 배경 + 상단 골드 프레임
+#                         🌸 CSS : 웨딩 배경 + 상단 ‘고급 곡선 골드 프레임’
 # ============================================================================================
 st.markdown("""
 <style>
@@ -35,60 +35,74 @@ body, .stApp {
     background-blend-mode: lighten, overlay, normal;
 }
 
-/* 🔥 상단 골드 프레임 Wrapper */
+
+/* ------------------------------------------------------------------
+   🔥 고급 곡선 골드 프레임 (청첩장 스타일)
+-------------------------------------------------------------------*/
 .header-frame {
-    border: 3px solid #d8b98b;
-    border-radius: 16px;
-    padding: 35px 20px 28px 20px;
-    margin-top: 25px;
-    background: rgba(255,255,255,0.55);
-    backdrop-filter: blur(3px);
-    width: 85%;
+    margin-top: 35px;
+    padding: 40px 20px 32px 20px;
+
+    width: 88%;
     margin-left: auto;
     margin-right: auto;
+
+    border-radius: 38px;
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(4px);
+
+    border: 4px solid;
+    border-image: linear-gradient(45deg, #d8b98b, #f7e4c2, #d8b98b) 1;
+
+    box-shadow: 0 0 18px rgba(215, 180, 120, 0.35),
+                inset 0 0 12px rgba(255, 240, 200, 0.35);
     position: relative;
 }
 
-/* 좌우 골드 리프 아이콘 */
+/* 양쪽 골드 장식 */
 .header-frame:before, .header-frame:after {
-    content: "❧";
-    font-size: 2.2rem;
+    content: "✦";
+    font-size: 2rem;
     color: #d8b98b;
     position: absolute;
-    top: -20px;
+    top: -22px;
 }
 
 .header-frame:before {
-    left: 14px;
+    left: 22px;
 }
 
 .header-frame:after {
-    right: 14px;
+    right: 22px;
     transform: scaleX(-1);
 }
 
-/* 메인 로고 이미지 */
+/* ------------------------------------------------------------------
+   로고 이미지
+-------------------------------------------------------------------*/
 .wedding-img {
-    opacity: 0.58;
-    width: 310px;
+    opacity: 0.6;
+    width: 300px;
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
 
-/* 타이틀 */
+/* ------------------------------------------------------------------
+   텍스트 스타일
+-------------------------------------------------------------------*/
 .title-main-kr {
     font-family: "Gmarket Sans", sans-serif;
     font-size: 3.0rem;
     font-weight: 900;
     color: #d36c87;
-    margin-top: 5px;
+    margin-top: 8px;
     text-align: center;
 }
 
 .title-main-en {
     font-family: "Pretendard", sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     color: #8a6b6b;
     text-align: center;
     margin-top: -8px;
@@ -97,24 +111,24 @@ body, .stApp {
 
 .title-sub {
     font-family: "Gowun Batang";
-    font-size: 1.0rem;
+    font-size: 1.05rem;
     text-align: center;
     color: #a18478;
-    margin-top: 12px;
+    margin-top: 10px;
 }
 
 .gold-line {
     width: 55%;
     height: 2px;
     background: linear-gradient(90deg, transparent, #d8bba0, transparent);
-    margin: 18px auto;
+    margin: 20px auto;
 }
 </style>
 """, unsafe_allow_html=True)
 
 
 # ============================================================================================
-#                                   🌸 상단 헤더 + 골드 프레임
+#                                   🌸 상단 헤더 UI
 # ============================================================================================
 st.markdown(f"""
 <div class="header-frame">
@@ -130,12 +144,14 @@ st.markdown(f"""
     <div class="gold-line"></div>
 
     <p class="title-sub">Singing & Hosting Professional Service</p>
+
 </div>
 """, unsafe_allow_html=True)
 
 
+
 # ============================================================================================
-#                                   🌸 입력폼
+#                                   🌸 입력 폼
 # ============================================================================================
 st.markdown("### 🎤 의뢰 서비스 선택")
 service = st.multiselect("", ["축가", "사회"], label_visibility="collapsed")
@@ -152,7 +168,7 @@ venue_address = st.text_input("예식장 주소")
 mood = st.radio("예식 분위기", ["낭만적 💞", "유쾌하게 😄", "격식 있게 🎩"])
 
 
-#  사회 선택 시 추가 입력
+# 사회 선택 시 추가 입력
 host_style = None
 if "사회" in service:
     st.markdown("### 🎙️ 사회 스타일")
@@ -199,7 +215,7 @@ special_request = st.text_area("특이사항 / 기타 요청사항", height=120)
 
 
 # ============================================================================================
-#                       🌸 이메일 전송 함수
+#                       🌸 이메일 전송
 # ============================================================================================
 def send_email(to, subject, body):
     try:
@@ -219,6 +235,7 @@ def send_email(to, subject, body):
     except Exception as e:
         st.error("❌ 이메일 전송 실패: " + str(e))
         return False
+
 
 
 # ============================================================================================
@@ -256,14 +273,15 @@ if st.button("💌 신청서 제출하기"):
 안녕하세요, 영원파파입니다 💒
 
 의뢰 신청이 정상 접수되었습니다!
-📌 **3일 이내에 회신드리겠습니다.**
+📌 **3일 이내 회신드리겠습니다.**
 
 --- 신청 내용 ---
 {email_body}
 
-문의사항은 인스타그램 @0one.papa 로 연락주세요 💕
+문의사항은 인스타그램 @0one.papa 로 편하게 연락주세요 💕
 """
         send_email(user_email, "[영원파파] 의뢰 접수 완료", confirm)
+
 
 
 # ============================================================================================

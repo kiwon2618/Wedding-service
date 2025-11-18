@@ -2,7 +2,6 @@ import streamlit as st
 from datetime import date
 import smtplib
 from email.mime.text import MIMEText
-import base64
 
 # ============================================================================================
 #                                   🌸 페이지 설정
@@ -11,13 +10,13 @@ st.set_page_config(page_title="영원파파 결혼식 축가·사회 의뢰", pa
 
 
 # ============================================================================================
-#                        🌸 웨딩 일러스트 Base64 (투명도 CSS로 조절)
+#                        🌸 웨딩 일러스트 (상단 로고)
 # ============================================================================================
-wedding_image = "https://i.imgur.com/qYH1b0s.png"   # 업로드한 이미지 URL 그대로 사용
+wedding_image = "https://cdn.pixabay.com/photo/2016/06/05/19/02/just-married-1436861_1280.png"
 
 
 # ============================================================================================
-#                         🌸 스타일: 부드러운 웨딩 아이보리 배경
+#                         🌸 CSS : 웨딩 배경 + 상단 골드 프레임
 # ============================================================================================
 st.markdown("""
 <style>
@@ -26,31 +25,73 @@ st.markdown("""
 body, .stApp {
     background-color: #f9f6f2;
     background-image:
-        linear-gradient(rgba(255,255,255,0.83), rgba(255,255,255,0.92)),
-        url('https://i.imgur.com/6Hn5lJv.png'),    /* 은은한 드레스 패턴 */
-        url('https://i.imgur.com/tHQM3sE.png');    /* 베이지 깃털 느낌 */
-    background-size: cover, 900px, 1200px;
+        linear-gradient(rgba(255,255,255,0.82), rgba(255,255,255,0.92)),
+        url('https://cdn.pixabay.com/photo/2017/03/30/12/40/background-2181508_1280.png'),
+        url('https://cdn.pixabay.com/photo/2016/11/29/05/34/beige-1867744_1280.jpg'),
+        url('https://cdn.pixabay.com/photo/2016/11/29/03/40/feathers-1867175_1280.png');
+    background-size: cover, 850px, 1400px, 1200px;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: repeat, repeat, repeat, repeat;
     background-blend-mode: lighten, overlay, normal;
 }
 
-/* 메인 타이틀 */
+/* 🔥 상단 골드 프레임 Wrapper */
+.header-frame {
+    border: 3px solid #d8b98b;
+    border-radius: 16px;
+    padding: 35px 20px 28px 20px;
+    margin-top: 25px;
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(3px);
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+/* 좌우 골드 리프 아이콘 */
+.header-frame:before, .header-frame:after {
+    content: "❧";
+    font-size: 2.2rem;
+    color: #d8b98b;
+    position: absolute;
+    top: -20px;
+}
+
+.header-frame:before {
+    left: 14px;
+}
+
+.header-frame:after {
+    right: 14px;
+    transform: scaleX(-1);
+}
+
+/* 메인 로고 이미지 */
+.wedding-img {
+    opacity: 0.58;
+    width: 310px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 타이틀 */
 .title-main-kr {
     font-family: "Gmarket Sans", sans-serif;
-    font-size: 3.1rem;
+    font-size: 3.0rem;
     font-weight: 900;
     color: #d36c87;
-    margin-top: 20px;
+    margin-top: 5px;
     text-align: center;
 }
 
 .title-main-en {
     font-family: "Pretendard", sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: #8a6b6b;
     text-align: center;
-    margin-top: -10px;
+    margin-top: -8px;
     line-height: 1.4;
 }
 
@@ -59,7 +100,7 @@ body, .stApp {
     font-size: 1.0rem;
     text-align: center;
     color: #a18478;
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
 .gold-line {
@@ -68,33 +109,28 @@ body, .stApp {
     background: linear-gradient(90deg, transparent, #d8bba0, transparent);
     margin: 18px auto;
 }
-
-.wedding-img {
-    opacity: 0.52;
-    width: 330px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
 </style>
 """, unsafe_allow_html=True)
 
 
 # ============================================================================================
-#                                   🌸 헤더 영역
+#                                   🌸 상단 헤더 + 골드 프레임
 # ============================================================================================
 st.markdown(f"""
-<img src="{wedding_image}" class="wedding-img"/>
+<div class="header-frame">
 
-<div class="title-main-kr">영원파파</div>
+    <img src="{wedding_image}" class="wedding-img"/>
 
-<div class="title-main-en">
-Wedding Ceremony with You
+    <div class="title-main-kr">영원파파</div>
+
+    <div class="title-main-en">
+        Wedding Ceremony with You
+    </div>
+
+    <div class="gold-line"></div>
+
+    <p class="title-sub">Singing & Hosting Professional Service</p>
 </div>
-
-<div class="gold-line"></div>
-
-<p class="title-sub">Singing & Hosting Professional Service</p>
 """, unsafe_allow_html=True)
 
 
@@ -215,19 +251,17 @@ if st.button("💌 신청서 제출하기"):
 
     send_email("hd261818@gmail.com", "[새 의뢰] 결혼식 축가·사회 신청", email_body)
 
-    # 사용자 확인 메일
     if user_email:
         confirm = f"""
 안녕하세요, 영원파파입니다 💒
 
 의뢰 신청이 정상 접수되었습니다!
-영원파파를 선택해주셔서 다시 한번 감사드립니다.
-📌 **3일 이내에 순차적으로 회신드리겠습니다.**
+📌 **3일 이내에 회신드리겠습니다.**
 
 --- 신청 내용 ---
 {email_body}
 
-문의사항은 인스타그램 @0one.papa 로 편하게 연락주세요 💕
+문의사항은 인스타그램 @0one.papa 로 연락주세요 💕
 """
         send_email(user_email, "[영원파파] 의뢰 접수 완료", confirm)
 

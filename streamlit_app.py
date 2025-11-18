@@ -17,20 +17,25 @@ wedding_image = "https://i.imgur.com/qYH1b0s.png"   # 업로드한 이미지 URL
 
 
 # ============================================================================================
-#                            🌸 스타일: 전체 페이지 웨딩 무드 + 투명도 이미지
+#                         🌸 스타일: 부드러운 웨딩 아이보리 배경
 # ============================================================================================
 st.markdown("""
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Pretendard:wght@500;600;700&family=Gmarket+Sans:wght@700&display=swap");
 
 body, .stApp {
-    background:
-        linear-gradient(rgba(255,255,255,0.90), rgba(255,255,255,0.88)),
-        url("https://www.transparenttextures.com/patterns/white-feather.png"),
-        url("https://www.transparenttextures.com/patterns/white-floral.png");
-    background-blend-mode: overlay;
+    background-color: #f9f6f2;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.83), rgba(255,255,255,0.92)),
+        url('https://i.imgur.com/6Hn5lJv.png'),    /* 은은한 드레스 패턴 */
+        url('https://i.imgur.com/tHQM3sE.png');    /* 베이지 깃털 느낌 */
+    background-size: cover, 900px, 1200px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: lighten, overlay, normal;
 }
 
+/* 메인 타이틀 */
 .title-main-kr {
     font-family: "Gmarket Sans", sans-serif;
     font-size: 3.1rem;
@@ -65,7 +70,7 @@ body, .stApp {
 }
 
 .wedding-img {
-    opacity: 0.55;      /* 🔥 투명도 조정 */
+    opacity: 0.52;
     width: 330px;
     display: block;
     margin-left: auto;
@@ -247,6 +252,3 @@ st.markdown("""
     </a>
 </div>
 """, unsafe_allow_html=True)
-
-
-

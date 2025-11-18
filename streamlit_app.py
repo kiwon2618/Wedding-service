@@ -14,117 +14,141 @@ st.set_page_config(page_title="영원파파 결혼식 축가·사회 의뢰", pa
 # ============================================================================================
 wedding_image = "https://cdn.pixabay.com/photo/2016/06/05/19/02/just-married-1436861_1280.png"
 
+# 금박 리본 base64 SVG (고급 청첩장 느낌)
+gold_ribbon = """
+<svg width="200" height="28" viewBox="0 0 300 60" xmlns="http://www.w3.org/2000/svg">
+<path d="M10 30 Q80 5 150 30 T290 30" stroke="url(#gold)" stroke-width="6" fill="none" />
+<defs>
+<linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+  <stop offset="0%" stop-color="#c9a667"/>
+  <stop offset="25%" stop-color="#f3e6c0"/>
+  <stop offset="50%" stop-color="#d8b98b"/>
+  <stop offset="75%" stop-color="#f3e6c0"/>
+  <stop offset="100%" stop-color="#c9a667"/>
+</linearGradient>
+</defs>
+</svg>
+"""
+
 
 # ============================================================================================
-#                         🌸 CSS : 웨딩 배경 + 상단 ‘고급 곡선 골드 프레임’
+#                          🌸 CSS – 청첩장급 프리미엄 금박 프레임
 # ============================================================================================
 st.markdown("""
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Pretendard:wght@500;600;700&family=Gmarket+Sans:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Pretendard:wght@600;700&family=Gmarket+Sans:wght@700&display=swap");
 
 body, .stApp {
     background-color: #f9f6f2;
     background-image:
-        linear-gradient(rgba(255,255,255,0.82), rgba(255,255,255,0.92)),
         url('https://cdn.pixabay.com/photo/2017/03/30/12/40/background-2181508_1280.png'),
-        url('https://cdn.pixabay.com/photo/2016/11/29/05/34/beige-1867744_1280.jpg'),
-        url('https://cdn.pixabay.com/photo/2016/11/29/03/40/feathers-1867175_1280.png');
-    background-size: cover, 850px, 1400px, 1200px;
-    background-position: center;
-    background-repeat: repeat, repeat, repeat, repeat;
-    background-blend-mode: lighten, overlay, normal;
+        url('https://cdn.pixabay.com/photo/2016/11/29/05/34/beige-1867744_1280.jpg');
+    background-size: cover;
+    background-repeat: repeat;
+    background-blend-mode: lighten;
 }
 
-
 /* ------------------------------------------------------------------
-   🔥 고급 곡선 골드 프레임 (청첩장 스타일)
+   🔥 물결형 + 둥근 청첩장 금박 프레임
 -------------------------------------------------------------------*/
 .header-frame {
-    margin-top: 35px;
-    padding: 40px 20px 32px 20px;
+    width: 90%;
+    margin: 40px auto 20px auto;
+    padding: 45px 28px 35px 28px;
 
-    width: 88%;
-    margin-left: auto;
-    margin-right: auto;
-
-    border-radius: 38px;
+    border-radius: 48px / 38px;
     background: rgba(255,255,255,0.55);
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(6px);
 
-    border: 4px solid;
-    border-image: linear-gradient(45deg, #d8b98b, #f7e4c2, #d8b98b) 1;
-
-    box-shadow: 0 0 18px rgba(215, 180, 120, 0.35),
-                inset 0 0 12px rgba(255, 240, 200, 0.35);
     position: relative;
+
+    /* Gold gradient border */
+    border: 6px solid;
+    border-image: linear-gradient(135deg,
+                #c4a46a,
+                #ebdebe,
+                #d6b680,
+                #f7eed3,
+                #c4a46a) 1;
+
+    /* 금박 노이즈 느낌 */
+    box-shadow:
+        0 0 15px rgba(210,180,120,0.35),
+        inset 0 0 22px rgba(250,230,200,0.4);
 }
 
-/* 양쪽 골드 장식 */
-.header-frame:before, .header-frame:after {
-    content: "✦";
-    font-size: 2rem;
-    color: #d8b98b;
+/* 물결형 효과 */
+.header-frame::before {
+    content: "";
     position: absolute;
-    top: -22px;
+    inset: 0;
+    border-radius: 48px / 38px;
+    padding: 4px;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.15),
+        rgba(255,255,255,0.15) 3px,
+        rgba(0,0,0,0) 3px,
+        rgba(0,0,0,0) 6px
+    );
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
 }
 
+/* 상단 장식 골드 아이콘 */
+.header-frame:after,
 .header-frame:before {
-    left: 22px;
-}
-
-.header-frame:after {
-    right: 22px;
-    transform: scaleX(-1);
+    pointer-events:none;
 }
 
 /* ------------------------------------------------------------------
-   로고 이미지
+   로고
 -------------------------------------------------------------------*/
 .wedding-img {
-    opacity: 0.6;
     width: 300px;
+    opacity: 0.62;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
 }
 
 /* ------------------------------------------------------------------
-   텍스트 스타일
+   텍스트
 -------------------------------------------------------------------*/
 .title-main-kr {
-    font-family: "Gmarket Sans", sans-serif;
+    font-family: "Gmarket Sans";
     font-size: 3.0rem;
-    font-weight: 900;
     color: #d36c87;
-    margin-top: 8px;
+    font-weight: 900;
     text-align: center;
 }
 
 .title-main-en {
-    font-family: "Pretendard", sans-serif;
+    font-family: "Pretendard";
     font-size: 1.15rem;
-    color: #8a6b6b;
     text-align: center;
     margin-top: -8px;
-    line-height: 1.4;
+    color: #8a6b6b;
 }
 
 .title-sub {
     font-family: "Gowun Batang";
     font-size: 1.05rem;
     text-align: center;
-    color: #a18478;
+    color: #9f8576;
     margin-top: 10px;
 }
 
 .gold-line {
     width: 55%;
     height: 2px;
-    background: linear-gradient(90deg, transparent, #d8bba0, transparent);
-    margin: 20px auto;
+    margin: 15px auto;
+    background: linear-gradient(90deg, transparent, #d6b680, transparent);
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 # ============================================================================================
@@ -132,19 +156,20 @@ body, .stApp {
 # ============================================================================================
 st.markdown(f"""
 <div class="header-frame">
-
-    <img src="{wedding_image}" class="wedding-img"/>
+    <img src="{wedding_image}" class="wedding-img" />
 
     <div class="title-main-kr">영원파파</div>
 
-    <div class="title-main-en">
-        Wedding Ceremony with You
-    </div>
+    <div class="title-main-en">Wedding Ceremony with You</div>
 
     <div class="gold-line"></div>
 
-    <p class="title-sub">Singing & Hosting Professional Service</p>
+    <!-- 금박 리본 삽입 -->
+    <div style="text-align:center; margin-top:12px; opacity:0.9;">
+        {gold_ribbon}
+    </div>
 
+    <p class="title-sub">Singing & Hosting Professional Service</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -168,120 +193,49 @@ venue_address = st.text_input("예식장 주소")
 mood = st.radio("예식 분위기", ["낭만적 💞", "유쾌하게 😄", "격식 있게 🎩"])
 
 
-# 사회 선택 시 추가 입력
+# 사회 선택 시
 host_style = None
 if "사회" in service:
     st.markdown("### 🎙️ 사회 스타일")
     host_style = st.radio("진행 스타일", ["담백·심플 (정석)", "센스 있고 위트 있게"])
 
 
-# 축가 선택 시 추가 입력
+# 축가 선택 시
 song_pref = None
 custom_song = None
-song_recommend_list = [
-    '임영웅 - 이제 나만 믿어요',
-    '유해준 - 나에게 그대만이 (탑현 ver. 가능)',
-    '윤종신 - 오르막길',
-    '이석훈 - 그대를 사랑하는 10가지 이유',
-    '이준호 - 넌',
-    '허각 - 언제나',
-    '허각 - 물론',
-    '정승환 - 사뿐',
-    '유리상자 - 신부에게',
-    '김범수 - 사랑의 시작은 고백에서부터 (전상근 ver. 가능)',
-    '김범수 - 오직 너만',
-    '한동근 - 그대라는 사치',
-    '윤종신 - 그대 없이는 못살아 (늦가을 ver.)'
-]
-
 if "축가" in service:
     st.markdown("### 🎵 축가 정보")
     song_pref = st.radio("원하는 곡이 있나요?", ["네, 있어요", "추천해주세요!"])
     if song_pref == "네, 있어요":
         custom_song = st.text_input("축가 곡명 입력")
     else:
+        song_recommend_list = [
+            '임영웅 - 이제 나만 믿어요',
+            '유해준 - 나에게 그대만이 (탑현 ver.)',
+            '윤종신 - 오르막길',
+            '이석훈 - 그대를 사랑하는 10가지 이유',
+            '김범수 - 오직 너만',
+        ]
         custom_song = st.selectbox("추천 곡 선택", song_recommend_list)
 
 
-# 연락처
+
+# ============================================================================================
+#                                   🌸 연락처
+# ============================================================================================
 st.markdown("### ✍️ 연락처 & 기타 요청사항")
 col1, col2 = st.columns(2)
-with col1:
-    user_email = st.text_input("📧 이메일")
-with col2:
-    user_phone = st.text_input("📱 핸드폰 번호")
+user_email = col1.text_input("📧 이메일")
+user_phone = col2.text_input("📱 핸드폰 번호")
 
 special_request = st.text_area("특이사항 / 기타 요청사항", height=120)
 
 
 # ============================================================================================
-#                       🌸 이메일 전송
-# ============================================================================================
-def send_email(to, subject, body):
-    try:
-        sender = st.secrets["email"]["address"]
-        pw = st.secrets["email"]["password"]
-
-        msg = MIMEText(body, _charset="utf-8")
-        msg["Subject"] = subject
-        msg["From"] = sender
-        msg["To"] = to
-
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
-            smtp.login(sender, pw)
-            smtp.send_message(msg)
-
-        return True
-    except Exception as e:
-        st.error("❌ 이메일 전송 실패: " + str(e))
-        return False
-
-
-
-# ============================================================================================
-#                                   🌸 제출 버튼
+#                                   🌸 제출
 # ============================================================================================
 if st.button("💌 신청서 제출하기"):
     st.success("의뢰 신청이 완료되었습니다! 💐")
-
-    form_data = {
-        "주인공": role,
-        "이름": name,
-        "만 나이": age,
-        "예식일": wedding_date,
-        "예식 장소": venue,
-        "예식장 주소": venue_address or "미입력",
-        "예식 분위기": mood,
-        "선택 서비스": ", ".join(service) if service else "미선택",
-        "사회 스타일": host_style if host_style else "해당 없음",
-        "축가 방식": song_pref if song_pref else "해당 없음",
-        "축가 곡명": custom_song if custom_song else "미입력",
-        "기타 요청사항": special_request or "없음",
-        "이메일": user_email or "미입력",
-        "핸드폰": user_phone or "미입력",
-    }
-
-    email_body = "💒 결혼식 축가·사회 의뢰 신청 내용 💒\n\n"
-    for k, v in form_data.items():
-        email_body += f"▪ {k}: {v}\n"
-    email_body += "\n감사합니다 💐\n"
-
-    send_email("hd261818@gmail.com", "[새 의뢰] 결혼식 축가·사회 신청", email_body)
-
-    if user_email:
-        confirm = f"""
-안녕하세요, 영원파파입니다 💒
-
-의뢰 신청이 정상 접수되었습니다!
-📌 **3일 이내 회신드리겠습니다.**
-
---- 신청 내용 ---
-{email_body}
-
-문의사항은 인스타그램 @0one.papa 로 편하게 연락주세요 💕
-"""
-        send_email(user_email, "[영원파파] 의뢰 접수 완료", confirm)
-
 
 
 # ============================================================================================
@@ -289,14 +243,15 @@ if st.button("💌 신청서 제출하기"):
 # ============================================================================================
 st.markdown("""
 <div style="text-align:center; margin-top:40px; margin-bottom:20px;">
-    <a class="insta-btn" href="https://www.instagram.com/0one.papa/" target="_blank"
+    <a href="https://www.instagram.com/0one.papa/" target="_blank"
        style="
             font-size:1.3rem;
             font-family:Pretendard;
             font-weight:700;
             padding:18px 50px;
             background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
-            color:white; border-radius:40px;
+            color:white;
+            border-radius:40px;
             text-decoration:none;
             box-shadow:0 6px 20px rgba(255,90,130,0.45);
         ">

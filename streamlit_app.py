@@ -15,97 +15,84 @@ st.set_page_config(
 
 
 # ============================================================================================
-#                                  🌸 GLOBAL CSS (A4 레이아웃 + 애니메이션)
+#                                   🌸 GLOBAL CSS
 # ============================================================================================
 st.markdown("""
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Pretendard:wght@400;600;700&family=Gmarket+Sans:wght@700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gmarket+Sans:wght@700&family=Pretendard:wght@400;600;700&display=swap');
 
-
-/* 기본 레이아웃 */
+/* 전체 */
 html, body, .stApp {
     background: #f9f5ef;
-    font-family: "Pretendard";
     display: flex;
     justify-content: center;
+    font-family: Pretendard;
 }
 
-
 /* =======================
-      📄 A4 카드 레이아웃
+      📄 A4 청첩장 레이아웃
 ======================= */
 .a4-card {
-    width: 780px;              /* A4 비율에 맞춘 카드 */
+    width: 780px;
     min-height: 1100px;
+    background: rgba(255,255,255,0.93);
     padding: 50px 55px 90px 55px;
     margin-top: 40px;
-    background: rgba(255,255,255,0.92);
     border-radius: 22px;
-
     box-shadow:
         0 0 40px rgba(0,0,0,0.05),
         0 0 80px rgba(0,0,0,0.04);
-
     position: relative;
     overflow: hidden;
 }
-
 
 /* =======================
       ✨ 금가루 애니메이션
 ======================= */
 @keyframes goldDust {
-  0%   { opacity: .07; transform: translateY(0px) scale(1); }
-  50%  { opacity: .15; transform: translateY(-16px) scale(1.15); }
-  100% { opacity: .07; transform: translateY(0px) scale(1); }
+    0%   { opacity: .07; transform: translateY(0px) scale(1); }
+    50%  { opacity: .16; transform: translateY(-16px) scale(1.15); }
+    100% { opacity: .07; transform: translateY(0px) scale(1); }
 }
 
 .gold-dust {
     position: absolute;
-    top: -70px;
-    left: 0;
-    width: 100%;
-    height: 260px;
-
+    top: -60px; left: 0;
+    width:100%; height:250px;
     background-image: url('https://cdn.pixabay.com/photo/2015/01/08/18/25/gold-593119_1280.jpg');
     background-size: cover;
     background-repeat: repeat-x;
-
     opacity: 0.08;
     animation: goldDust 5s ease-in-out infinite;
-
     pointer-events: none;
     z-index: 2;
 }
 
-
 /* =======================
-      🌸 헤더 꽃 패턴
+      🌸 헤더 꽃 텍스처
 ======================= */
 .header-floral {
     width: 100%;
-    height: 165px;
+    height: 160px;
     background-image: url('https://cdn.pixabay.com/photo/2016/11/29/08/09/flower-1867614_1280.png');
     background-repeat: no-repeat;
     background-size: contain;
-    background-position: top center;
-    opacity: 0.24;
+    background-position: center;
+    opacity: 0.25;
     margin-top: -20px;
-    z-index: 1;
 }
-
 
 /* =======================
       🎀 곡선 금박 프레임
 ======================= */
 .header-frame {
     width: 100%;
-    margin: 35px auto 20px auto;
-    padding: 48px 30px 38px 30px;
+    margin-top: 25px;
+    padding: 45px 28px 35px 28px;
 
-    border-radius: 48px / 38px;
     background: rgba(255,255,255,0.55);
     backdrop-filter: blur(6px);
+    border-radius: 48px / 38px;
 
     border: 6px solid;
     border-image: linear-gradient(
@@ -125,18 +112,7 @@ html, body, .stApp {
     z-index: 10;
 }
 
-
-/* 금박 리본 */
-.ribbon-box {
-    text-align:center;
-    margin-top:12px;
-    opacity:0.9;
-}
-
-
-/* =======================
-      🖼 로고 이미지
-======================= */
+/* 로고 */
 .wedding-img {
     width: 270px;
     opacity: .62;
@@ -144,10 +120,7 @@ html, body, .stApp {
     margin:auto;
 }
 
-
-/* =======================
-      ✒ 텍스트 스타일
-======================= */
+/* 타이틀 */
 .title-main-kr {
     font-family: "Gmarket Sans";
     font-size: 2.9rem;
@@ -157,27 +130,30 @@ html, body, .stApp {
 }
 
 .title-main-en {
-    font-family: "Pretendard";
-    font-size:1.18rem;
+    font-family:"Pretendard";
+    font-size:1.15rem;
     text-align:center;
-    margin-top:-8px;
+    margin-top:-10px;
     color:#8a6b6b;
 }
 
 .title-sub {
     font-family:"Gowun Batang";
-    font-size:1.08rem;
+    font-size:1.05rem;
     text-align:center;
-    color:#a58876;
+    color:#9c8372;
     margin-top:12px;
 }
 
 .gold-line {
-    width:55%;
+    width: 55%;
     height:2px;
-    margin:20px auto;
-    background:linear-gradient(90deg,transparent,#d6b680,transparent);
+    margin:18px auto;
+    background: linear-gradient(90deg,transparent,#d6b680,transparent);
 }
+
+.ribbon-box { text-align:center; margin-top:12px; opacity:0.9; }
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -186,29 +162,15 @@ html, body, .stApp {
 
 
 # ============================================================================================
-#                           🌸 A4 레이아웃 시작
+#                      🌸 HTML HEADER RENDER FUNCTION (절대 공백 X)
 # ============================================================================================
-st.markdown('<div class="a4-card">', unsafe_allow_html=True)
-
-# 금가루 애니메이션
-st.markdown('<div class="gold-dust"></div>', unsafe_allow_html=True)
-
-# 꽃 무늬 텍스처
-st.markdown('<div class="header-floral"></div>', unsafe_allow_html=True)
-
-
-
-# ============================================================================================
-#                           🌸 HEADER (Logo + Title + Ribbon)
-# ============================================================================================
-st.markdown("""
+def render_header():
+    html = """
 <div class="header-frame">
 
-    <img src="https://cdn.pixabay.com/photo/2016/06/05/19/02/just-married-1436861_1280.png"
-         class="wedding-img">
+    <img src="https://cdn.pixabay.com/photo/2016/06/05/19/02/just-married-1436861_1280.png" class="wedding-img">
 
     <div class="title-main-kr">영원파파</div>
-
     <div class="title-main-en">Wedding Ceremony with You</div>
 
     <div class="gold-line"></div>
@@ -216,7 +178,7 @@ st.markdown("""
     <div class="ribbon-box">
         <svg width="200" height="28" viewBox="0 0 300 60">
             <path d="M10 30 Q80 5 150 30 T290 30"
-                  stroke="url(#gold)" stroke-width="6" fill="none" />
+                stroke="url(#gold)" stroke-width="6" fill="none"/>
             <defs>
                 <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stop-color="#c9a667"/>
@@ -230,14 +192,26 @@ st.markdown("""
     </div>
 
     <p class="title-sub">Singing & Hosting Professional Service</p>
-
 </div>
-""", unsafe_allow_html=True)
+"""
+    st.markdown(html, unsafe_allow_html=True)
 
 
 
 # ============================================================================================
-#                                   🌸 FORM SECTION
+#                                  🌸 A4 CARD START
+# ============================================================================================
+st.markdown('<div class="a4-card">', unsafe_allow_html=True)
+
+st.markdown('<div class="gold-dust"></div>', unsafe_allow_html=True)
+st.markdown('<div class="header-floral"></div>', unsafe_allow_html=True)
+
+render_header()
+
+
+
+# ============================================================================================
+#                                   🌸 FORM AREA
 # ============================================================================================
 st.markdown("### 🎤 의뢰 서비스 선택")
 service = st.multiselect("", ["축가", "사회"], label_visibility="collapsed")
@@ -254,19 +228,20 @@ venue_address = st.text_input("예식장 주소")
 mood = st.radio("예식 분위기", ["낭만적 💞", "유쾌하게 😄", "격식 있게 🎩"])
 
 
-# 사회 선택 시 옵션
+# 사회
 host_style = None
 if "사회" in service:
     st.markdown("### 🎙️ 사회 스타일")
     host_style = st.radio("진행 스타일", ["담백·심플 (정석)", "센스 있고 위트 있게"])
 
 
-# 축가 선택 시 옵션
+# 축가
 song_pref = None
 custom_song = None
 if "축가" in service:
     st.markdown("### 🎵 축가 정보")
     song_pref = st.radio("원하는 곡이 있나요?", ["네, 있어요", "추천해주세요!"])
+
     if song_pref == "네, 있어요":
         custom_song = st.text_input("축가 곡명 입력")
     else:
@@ -290,37 +265,31 @@ special_request = st.text_area("특이사항 / 기타 요청사항", height=120)
 
 
 
-# ============================================================================================
-#                                   🌸 SUBMIT
-# ============================================================================================
+# 제출
 if st.button("💌 신청서 제출하기"):
     st.success("의뢰 신청이 완료되었습니다! 💐")
 
 
 
-# ============================================================================================
-#                                   🌸 INSTAGRAM BUTTON
-# ============================================================================================
+# Instagram
 st.markdown("""
 <div style="text-align:center; margin-top:40px;">
     <a href="https://www.instagram.com/0one.papa/" target="_blank"
        style="
             font-size:1.3rem;
-            font-family:Pretendard;
-            font-weight:700;
             padding:18px 50px;
             background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
             color:white;
             border-radius:40px;
             text-decoration:none;
             box-shadow:0 6px 20px rgba(255,90,130,0.45);
-        ">
+            font-family:Pretendard;
+            font-weight:700;">
         📸 Instagram @0one.papa
     </a>
 </div>
 """, unsafe_allow_html=True)
 
 
-
-# A4 카드 닫기
+# 카드 닫기
 st.markdown("</div>", unsafe_allow_html=True)

@@ -8,7 +8,7 @@ from email.mime.text import MIMEText
 # ============================================================================================
 st.set_page_config(
     page_title="🌸영원파파 결혼식 축가·사회 의뢰🌸",
-    page_icon="💐",
+    page_icon="💐","🌸"
     layout="centered"
 )
 

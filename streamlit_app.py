@@ -199,4 +199,259 @@ html, body, .stApp {
 
 .card .stTextInput > div > div > input,
 .card .stNumberInput > div > div > input,
-.card .st
+.card .stTextArea > div > div > textarea {
+    border: 2px solid rgba(214, 182, 128, 0.3);
+    border-radius: 8px;
+    padding: 0.6rem;
+    font-family: "Pretendard", sans-serif;
+    transition: all 0.3s;
+}
+
+.card .stTextInput > div > div > input:focus,
+.card .stNumberInput > div > div > input:focus,
+.card .stTextArea > div > div > textarea:focus {
+    border-color: #d6b680;
+    box-shadow: 0 0 0 3px rgba(214, 182, 128, 0.15);
+    outline: none;
+}
+
+.card .stButton > button {
+    width: 100%;
+    font-size: 1.15rem;
+    padding: 0.85rem;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #d36c87, #e6683c);
+    color: white;
+    border: none;
+    font-weight: 700;
+    font-family: "Pretendard", sans-serif;
+    box-shadow: 
+        0 4px 15px rgba(211, 108, 135, 0.4),
+        0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+    margin-top: 1rem;
+}
+
+.card .stButton > button:hover {
+    background: linear-gradient(135deg, #c55a7a, #d5572f);
+    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 20px rgba(211, 108, 135, 0.5),
+        0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.card .stSelectbox > div > div {
+    border: 2px solid rgba(214, 182, 128, 0.3);
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.card .stSelectbox > div > div:hover {
+    border-color: #d6b680;
+}
+
+.card .stMultiselect > div > div {
+    border: 2px solid rgba(214, 182, 128, 0.3);
+    border-radius: 8px;
+}
+
+/* 인스타 버튼 */
+.insta-btn {
+    font-size: 1.3rem;
+    font-family: "Pretendard", sans-serif;
+    font-weight: 700;
+    padding: 18px 50px;
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    color: white;
+    border-radius: 40px;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(255, 90, 130, 0.45);
+    display: inline-block;
+    transition: all 0.3s;
+}
+
+.insta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 90, 130, 0.6);
+    text-decoration: none;
+    color: white;
+}
+
+/* 성공/에러 메시지 스타일 */
+.card .stSuccess,
+.card .stInfo,
+.card .stError {
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-left: 4px solid;
+}
+
+.card .stSuccess {
+    background: rgba(76, 175, 80, 0.1);
+    border-color: #4caf50;
+}
+
+.card .stInfo {
+    background: rgba(33, 150, 243, 0.1);
+    border-color: #2196f3;
+}
+
+.card .stError {
+    background: rgba(244, 67, 54, 0.1);
+    border-color: #f44336;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 900px) {
+    .card {
+        width: 95%;
+        padding: 35px 30px 50px 30px;
+    }
+    
+    .title-main-kr {
+        font-size: 1.7rem;
+    }
+}
+</style>
+""", unsafe_allow_html=True)
+
+# =========================================================
+# HEADER (HTML 공백 없이 바로 시작)
+# =========================================================
+st.markdown("""
+<div class="card">
+    <div class="gold-dust"></div>
+    <div class="header-floral"></div>
+    <div class="header-frame">
+        <img src="https://cdn.pixabay.com/photo/2016/06/05/19/02/just-married-1436861_1280.png" 
+             class="wedding-img"
+             alt="Wedding"
+             onerror="this.style.display='none'">
+        <div class="title-main-kr">영원파파</div>
+        <div class="title-main-en">Wedding Ceremony with You</div>
+        <div class="gold-line"></div>
+        <div style="text-align:center; margin-top:8px;">
+            <svg width="200" height="28" viewBox="0 0 300 60">
+                <path d="M10 30 Q80 5 150 30 T290 30" 
+                      stroke="url(#gold)" 
+                      stroke-width="6" 
+                      fill="none"
+                      stroke-linecap="round"/>
+                <defs>
+                    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#c9a667"/>
+                        <stop offset="25%" stop-color="#f3e6c0"/>
+                        <stop offset="50%" stop-color="#d8b98b"/>
+                        <stop offset="75%" stop-color="#f3e6c0"/>
+                        <stop offset="100%" stop-color="#c9a667"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+        <p class="title-sub">Singing & Hosting Professional Service</p>
+    </div>
+""", unsafe_allow_html=True)
+
+# =========================================================
+# FORM AREA
+# =========================================================
+st.markdown("### 🎤 의뢰 서비스 선택")
+service = st.multiselect("", ["축가", "사회"], label_visibility="collapsed")
+
+st.markdown("### 👰🤵 기본 정보")
+role = st.radio("결혼식 주인공", ["신랑", "신부"])
+name = st.text_input("이름")
+age = st.number_input("만 나이", min_value=18, max_value=80)
+wedding_date = st.date_input("예식일", value=date.today())
+
+st.markdown("### 🏩 예식 정보")
+venue = st.selectbox("예식 장소", ["호텔", "하우스 웨딩", "야외", "컨벤션", "기타"])
+venue_address = st.text_input("예식장 주소")
+mood = st.radio("예식 분위기", ["낭만적 💞", "유쾌하게 😄", "격식 있게 🎩"])
+
+# 사회
+host_style = None
+if "사회" in service:
+    st.markdown("### 🎙️ 사회 스타일")
+    host_style = st.radio("진행 스타일", ["담백·정석", "센스 있고 위트 있게"])
+
+# 축가
+song_pref = None
+custom_song = None
+song_recommend_list = [
+    '임영웅 - 이제 나만 믿어요',
+    '유해준 - 나에게 그대만이 (탑현 ver. 가능)',
+    '윤종신 - 오르막길',
+    '이석훈 - 그대를 사랑하는 10가지 이유',
+    '이준호 - 넌',
+    '허각 - 언제나',
+    '허각 - 물론',
+    '정승환 - 사뿐',
+    '유리상자 - 신부에게',
+    '김범수 - 사랑의 시작은 고백에서부터 (전상근 ver. 가능)',
+    '김범수 - 오직 너만',
+    '한동근 - 그대라는 사치',
+    '윤종신 - 그대 없이는 못살아 (늦가을 ver.)'
+]
+
+if "축가" in service:
+    st.markdown("### 🎵 축가 정보")
+    song_pref = st.radio("원하는 곡이 있나요?", ["네, 있어요", "추천해주세요!"])
+    
+    if song_pref == "네, 있어요":
+        custom_song = st.text_input("축가 곡명 입력")
+    else:
+        custom_song = st.selectbox("추천 곡 선택", song_recommend_list)
+
+# 연락처
+st.markdown("### ✍️ 연락처 & 기타 요청사항")
+col1, col2 = st.columns(2)
+user_email = col1.text_input("📧 이메일")
+user_phone = col2.text_input("📱 핸드폰 번호")
+
+special_request = st.text_area("특이사항 / 기타 요청사항", height=120)
+
+# =========================================================
+# SUBMIT BUTTON
+# =========================================================
+if st.button("💌 신청서 제출하기"):
+    # 유효성 검사
+    if not service:
+        st.error("⚠️ 의뢰 서비스를 선택해주세요.")
+    elif not name:
+        st.error("⚠️ 이름을 입력해주세요.")
+    elif not user_email and not user_phone:
+        st.error("⚠️ 연락처를 최소 하나는 입력해주세요.")
+    else:
+        st.success("✅ 의뢰 신청이 완료되었습니다! 💐")
+        st.info(f"""
+        📋 신청 내용 요약:
+        - 서비스: {', '.join(service)}
+        - 주인공: {role} {name} ({age}세)
+        - 예식일: {wedding_date.strftime('%Y년 %m월 %d일')}
+        - 장소: {venue} ({venue_address if venue_address else '미입력'})
+        - 분위기: {mood}
+        """)
+        
+        if host_style:
+            st.info(f"🎙️ 사회 스타일: {host_style}")
+        
+        if custom_song:
+            st.info(f"🎵 선택한 곡: {custom_song}")
+
+# =========================================================
+# END CARD CLOSE
+# =========================================================
+st.markdown("</div>", unsafe_allow_html=True)
+
+# =========================================================
+# INSTAGRAM BUTTON
+# =========================================================
+st.markdown("""
+<div style='text-align:center; margin-top:45px; margin-bottom:30px;'>
+    <a class="insta-btn" href="https://www.instagram.com/0one.papa/" target="_blank">
+        📸 Instagram @0one.papa
+    </a>
+</div>
+""", unsafe_allow_html=True)

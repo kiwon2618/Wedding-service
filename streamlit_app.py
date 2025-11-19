@@ -9,95 +9,90 @@ st.set_page_config(page_title="영원파파 결혼식 서비스", layout="center
 #                                       🎨  HTML + CSS 풀디자인
 # ================================================================================================
 
-HTML_HEADER = """
+import streamlit as st
+
+st.set_page_config(page_title="영원파파 웨딩 서비스", layout="centered")
+
+st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gmarket+Sans:wght@700&family=Pretendard:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gmarket+Sans:wght@700&display=swap');
 
 html, body, .stApp {
     background:#f6f2ea;
-    margin:0;
-    padding:0;
-    font-family:Pretendard;
     overflow-x:hidden;
+    font-family:Pretendard;
 }
 
-.weddingbook-wrapper {
+.wedding-wrapper {
     width:100%;
-    padding:40px 0 30px 0;
-    background:linear-gradient(135deg,#f9f6f0,#f4eee6,#faf7f3);
-    box-shadow:inset 0 0 50px rgba(160,130,90,0.15);
+    padding:40px 0;
+    background:linear-gradient(135deg,#fbf8f2,#f6efe6);
 }
 
 .card {
-    width:850px;
+    width:860px;
     max-width:92%;
-    padding:45px 55px 40px 55px;
-    margin:0px auto 40px auto;
-    background:rgba(255,255,255,0.90);
+    margin:0 auto;
+    padding:40px 50px;
+    background:white;
     border-radius:32px;
-    backdrop-filter:blur(5px);
-    box-shadow:0 0 40px rgba(200,170,110,0.25), inset 0 0 12px rgba(255,240,210,0.35);
-}
-
-.header-frame {
-    padding:35px 20px;
-    border-radius:40px;
-    border:7px solid;
-    border-image:linear-gradient(135deg,#bf9f63,#f6e9c8,#d6b67a,#f3e6c8,#b99151) 1;
-    background:rgba(255,255,255,0.65);
-    box-shadow:
-        0 0 20px rgba(250,225,160,0.45),
-        inset 0 0 18px rgba(245,220,180,0.40);
+    box-shadow:0 0 40px rgba(180,150,90,0.25);
 }
 
 .header-floral {
     width:100%;
     height:100px;
-    background-image:url('https://cdn.pixabay.com/photo/2016/11/29/08/09/flower-1867614_1280.png');
-    background-repeat:no-repeat;
-    background-position:center;
-    background-size:240px;
-    opacity:0.18;
-    margin-bottom:15px;
+    background:url('https://cdn.pixabay.com/photo/2016/11/29/08/09/flower-1867614_1280.png') center/240px no-repeat;
+    opacity:0.22;
+}
+
+.header-frame {
+    padding:35px 20px;
+    border-radius:32px;
+    border:7px solid;
+    border-image:linear-gradient(135deg,#bf9f63,#f6e9c8,#d6b67a) 1;
+    background:rgba(255,255,255,0.65);
+    box-shadow:inset 0 0 18px rgba(250,220,180,0.40);
 }
 
 .title-main-kr {
+    text-align:center;
     font-family:"Gmarket Sans";
     font-size:1.45rem;
-    text-align:center;
     font-weight:900;
-    background:linear-gradient(90deg,#d1b06a,#f6e6c8,#c19b59,#f6e6c8,#d1b06a);
+    background:linear-gradient(90deg,#d1b06a,#f4e6c8,#c19b59);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
 
 .title-main-en {
     text-align:center;
-    font-size:2.2rem;
+    font-size:2rem;
+    margin-top:6px;
     font-weight:800;
-    background:linear-gradient(90deg,#c8a266,#f0e4c2,#b78c4e,#f0e4c2,#c8a266);
+    background:linear-gradient(90deg,#c8a266,#f0e4c2,#b78c4e);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
 
 .gold-line {
-    width:60%;
-    margin:20px auto;
+    width:55%;
     height:2px;
-    background:linear-gradient(90deg,transparent,#cbaa72,transparent);
+    margin:20px auto;
+    background:linear-gradient(90deg,transparent,#cbb27c,transparent);
 }
 
 .title-sub {
     text-align:center;
     font-family:"Gowun Batang";
-    font-size:1.15rem;
-    color:#907b68;
+    font-size:1.1rem;
+    color:#8c7a66;
 }
 
-/* 아이콘 */
+/* ICON SECTION */
 .icon-section {
     text-align:center;
-    margin-top:40px;
+    margin-top:35px;
 }
 .icon-section svg {
     width:40px;
@@ -105,36 +100,38 @@ html, body, .stApp {
     filter:drop-shadow(0 0 6px rgba(185,150,95,0.45));
 }
 
-/* 구분선 */
+/* DIVIDER */
 .gold-divider {
     width:70%;
     height:4px;
-    margin:35px auto;
+    margin:40px auto 30px;
     background:linear-gradient(90deg,transparent,#d2b67e,#f4e6c4,#d2b67e,transparent);
     border-radius:3px;
 }
 
-/* 추천곡 박스 */
+/* RECOMMEND SECTION */
 .recommend-box {
     width:85%;
-    margin:0 auto 40px auto;
+    margin:0 auto;
     padding:28px 35px;
-    background:rgba(255,255,255,0.90);
+    background:white;
     border-radius:22px;
     border:4px solid;
     border-image:linear-gradient(135deg,#c9a564,#f3e6c5,#b89152) 1;
 }
+
 .recommend-title {
     text-align:center;
     font-family:"Gmarket Sans";
-    font-size:1.55rem;
-    margin-bottom:18px;
+    font-size:1.45rem;
+    margin-bottom:12px;
     background:linear-gradient(90deg,#d1b27a,#f3e4c3,#b89457);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
+
 .song-item {
-    padding:10px 0;
+    padding:9px 0;
     font-size:1.05rem;
     border-bottom:1px solid #e8dcc7;
 }
@@ -145,62 +142,65 @@ html, body, .stApp {
     transition:0.25s;
 }
 
-/* 모바일 */
-@media(max-width:600px) {
-    .card {padding:35px 20px;}
-    .title-main-en {font-size:1.65rem;}
-    .recommend-box {padding:22px;}
+/* INSTAGRAM */
+.insta-link {
+    text-align:center;
+    margin-top:25px;
+}
+.insta-link a {
+    color:#b89252;
+    font-size:1.05rem;
+    text-decoration:none;
+}
+.insta-link a:hover {
+    color:#d1ab6c;
 }
 </style>
 
-<div class="weddingbook-wrapper">
-    <div class="card">
+<div class="wedding-wrapper">
+<div class="card">
 
-        <div class="header-floral"></div>
+<div class="header-floral"></div>
 
-        <div class="header-frame">
-            <div class="title-main-kr">영원파파</div>
-            <div class="title-main-en">Wedding Ceremony with You</div>
-            <div class="gold-line"></div>
-            <p class="title-sub">Singing & Hosting Professional Service</p>
-        </div>
-
-        <div class="icon-section">
-            <svg fill="#c9a667" viewBox="0 0 24 24">
-                <path d="M12 2l3 3-3 3-3-3 3-3zm0 6a7 7 0 110 14 7 7 0 010-14zm0 2a5 5 0 100 10 5 5 0 000-10z"/>
-            </svg>
-            <svg fill="#c9a667" viewBox="0 0 24 24">
-                <path d="M12 21s-7-4.3-7-10a5 5 0 019-3 5 5 0 019 3c0 5.7-7 10-7 10z"/>
-            </svg>
-            <svg fill="#c9a667" viewBox="0 0 24 24">
-                <path d="M12 14a3 3 0 003-3V5a3 3 0 00-6 0v6a3 3 0 003 3zm5-3a5 5 0 01-10 0H5a7 7 0 0014 0h-2z"/>
-            </svg>
-        </div>
-
-        <div class="gold-divider"></div>
-
-        <div class="recommend-box">
-            <div class="recommend-title">✨ 축가 추천곡 리스트</div>
-            <div class="song-item">임영웅 – 이제 나만 믿어요</div>
-            <div class="song-item">유해준 – 나에게 그대만이 (탑현 ver.)</div>
-            <div class="song-item">윤종신 – 오르막길</div>
-            <div class="song-item">이석훈 – 그대를 사랑하는 10가지 이유</div>
-            <div class="song-item">이준호 – 넌</div>
-            <div class="song-item">허각 – 언제나</div>
-            <div class="song-item">허각 – 물론</div>
-            <div class="song-item">정승환 – 사뿐</div>
-            <div class="song-item">유리상자 – 신부에게</div>
-            <div class="song-item">김범수 – 사랑의 시작은 고백에서부터 (전상근 ver.)</div>
-            <div class="song-item">김범수 – 오직 너만</div>
-            <div class="song-item">한동근 – 그대라는 사치</div>
-            <div class="song-item">윤종신 – 그대 없이는 못살아 (늦가을 ver.)</div>
-        </div>
-
-    </div>
+<div class="header-frame">
+    <div class="title-main-kr">영원파파</div>
+    <div class="title-main-en">Wedding Ceremony with You</div>
+    <div class="gold-line"></div>
+    <p class="title-sub">Singing & Hosting Professional Service</p>
 </div>
-"""
 
-st.markdown(HTML_HEADER, unsafe_allow_html=True)
+<div class="icon-section">
+    <svg fill="#c9a667" viewBox="0 0 24 24"><path d="M12 2l3 3-3 3-3-3 3-3zm0 6a7 7 0 110 14 7 7 0 010-14zm0 2a5 5 0 100 10 5 5 0 000-10z"/></svg>
+    <svg fill="#c9a667" viewBox="0 0 24 24"><path d="M12 21s-7-4.3-7-10a5 5 0 019-3 5 5 0 019 3c0 5.7-7 10-7 10z"/></svg>
+    <svg fill="#c9a667" viewBox="0 0 24 24"><path d="M12 14a3 3 0 003-3V5a3 3 0 00-6 0v6a3 3 0 003 3zm5-3a5 5 0 01-10 0H5a7 7 0 0014 0h-2z"/></svg>
+</div>
+
+<div class="gold-divider"></div>
+
+<div class="recommend-box">
+    <div class="recommend-title">✨ 축가 추천곡 리스트</div>
+    <div class="song-item">임영웅 – 이제 나만 믿어요</div>
+    <div class="song-item">유해준 – 나에게 그대만이 (탑현 ver.)</div>
+    <div class="song-item">윤종신 – 오르막길</div>
+    <div class="song-item">이석훈 – 그대를 사랑하는 10가지 이유</div>
+    <div class="song-item">이준호 – 넌</div>
+    <div class="song-item">허각 – 언제나</div>
+    <div class="song-item">허각 – 물론</div>
+    <div class="song-item">정승환 – 사뿐</div>
+    <div class="song-item">유리상자 – 신부에게</div>
+    <div class="song-item">김범수 – 사랑의 시작은 고백에서부터 (전상근 ver.)</div>
+    <div class="song-item">김범수 – 오직 너만</div>
+    <div class="song-item">한동근 – 그대라는 사치</div>
+    <div class="song-item">윤종신 – 그대 없이는 못살아 (늦가을 ver.)</div>
+</div>
+
+<div class="insta-link">
+    <a href="https://instagram.com/yeongwonpapa" target="_blank">📸 영원파파 인스타그램 바로가기</a>
+</div>
+
+</div>
+</div>
+""", unsafe_allow_html=True)
 
 # ============================================================================================================
 #                                    🎤 서비스 입력 섹션 (기능 파트)

@@ -48,11 +48,7 @@ html, body, .stApp {
     overflow: visible;
 }
 
-/* 카드 안의 모든 Streamlit 요소 */
-.card ~ * {
-    display: none !important;
-}
-
+/* 카드 안의 모든 Streamlit 요소 - 흰색 배경 강제 적용 */
 .card .element-container,
 .card [data-testid],
 .card .stMarkdown,
@@ -66,13 +62,30 @@ html, body, .stApp {
 .card .stButton,
 .card .stSuccess,
 .card .stInfo,
-.card .stError {
+.card .stError,
+.card .stColumns {
     width: 100% !important;
     max-width: 100% !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
+    background: transparent !important;
+}
+
+/* 모든 입력 필드와 선택 박스에 흰색 배경 적용 */
+.card .stTextInput > div > div > input,
+.card .stNumberInput > div > div > input,
+.card .stTextArea > div > div > textarea,
+.card .stSelectbox > div > div,
+.card .stMultiselect > div > div {
+    background: white !important;
+}
+
+/* 라디오 버튼과 체크박스 배경 */
+.card .stRadio > div,
+.card .stCheckbox > div {
+    background: transparent !important;
 }
 
 /* 배경 금가루 */
@@ -88,6 +101,10 @@ html, body, .stApp {
     left: 0;
     width: 100%;
     height: 180px;
+    background: linear-gradient(135deg, 
+        rgba(214, 182, 128, 0.05),
+        rgba(250, 230, 200, 0.08),
+        rgba(214, 182, 128, 0.05));
     background-image: url('https://cdn.pixabay.com/photo/2015/01/08/18/25/gold-593119_1280.jpg');
     background-repeat: repeat-x;
     background-size: cover;
@@ -101,6 +118,9 @@ html, body, .stApp {
 .header-floral {
     width: 100%;
     height: 120px;
+    background: radial-gradient(circle at 50% 50%, 
+        rgba(214, 182, 128, 0.1) 0%,
+        transparent 60%);
     background-image: url('https://cdn.pixabay.com/photo/2016/11/29/08/09/flower-1867614_1280.png');
     background-repeat: no-repeat;
     background-size: contain;
@@ -200,19 +220,23 @@ html, body, .stApp {
 .card .stTextInput > div > div > input,
 .card .stNumberInput > div > div > input,
 .card .stTextArea > div > div > textarea {
-    border: 2px solid rgba(214, 182, 128, 0.3);
-    border-radius: 8px;
-    padding: 0.6rem;
-    font-family: "Pretendard", sans-serif;
-    transition: all 0.3s;
+    border: 2px solid rgba(214, 182, 128, 0.3) !important;
+    border-radius: 8px !important;
+    padding: 0.6rem !important;
+    font-family: "Pretendard", sans-serif !important;
+    transition: all 0.3s !important;
+    background: white !important;
+    background-color: white !important;
 }
 
 .card .stTextInput > div > div > input:focus,
 .card .stNumberInput > div > div > input:focus,
 .card .stTextArea > div > div > textarea:focus {
-    border-color: #d6b680;
-    box-shadow: 0 0 0 3px rgba(214, 182, 128, 0.15);
-    outline: none;
+    border-color: #d6b680 !important;
+    box-shadow: 0 0 0 3px rgba(214, 182, 128, 0.15) !important;
+    outline: none !important;
+    background: white !important;
+    background-color: white !important;
 }
 
 .card .stButton > button {
@@ -241,18 +265,31 @@ html, body, .stApp {
 }
 
 .card .stSelectbox > div > div {
-    border: 2px solid rgba(214, 182, 128, 0.3);
-    border-radius: 8px;
-    transition: all 0.3s;
+    border: 2px solid rgba(214, 182, 128, 0.3) !important;
+    border-radius: 8px !important;
+    transition: all 0.3s !important;
+    background: white !important;
+    background-color: white !important;
 }
 
 .card .stSelectbox > div > div:hover {
-    border-color: #d6b680;
+    border-color: #d6b680 !important;
+    background: white !important;
+    background-color: white !important;
 }
 
 .card .stMultiselect > div > div {
-    border: 2px solid rgba(214, 182, 128, 0.3);
-    border-radius: 8px;
+    border: 2px solid rgba(214, 182, 128, 0.3) !important;
+    border-radius: 8px !important;
+    background: white !important;
+    background-color: white !important;
+}
+
+.card .stDateInput > div > div > input {
+    background: white !important;
+    background-color: white !important;
+    border: 2px solid rgba(214, 182, 128, 0.3) !important;
+    border-radius: 8px !important;
 }
 
 /* 인스타 버튼 */
@@ -327,7 +364,7 @@ st.markdown("""
         <img src="https://cdn.pixabay.com/photo/2016/06/05/19/02/just-married-1436861_1280.png" 
              class="wedding-img"
              alt="Wedding"
-             onerror="this.style.display='none'">
+             onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'140\\' height=\\'100\\' viewBox=\\'0 0 140 100\\'%3E%3Crect fill=\\'%23f0e6d2\\' width=\\'140\\' height=\\'100\\'/%3E%3Ctext x=\\'50%25\\' y=\\'50%25\\' font-family=\\'Arial\\' font-size=\\'14\\' fill=\\'%23d6b680\\' text-anchor=\\'middle\\' dominant-baseline=\\'middle\\'%3E💒%3C/text%3E%3C/svg%3E';">
         <div class="title-main-kr">영원파파</div>
         <div class="title-main-en">Wedding Ceremony with You</div>
         <div class="gold-line"></div>
